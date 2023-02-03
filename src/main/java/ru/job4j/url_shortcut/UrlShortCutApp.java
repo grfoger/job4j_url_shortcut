@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Job4jUrlShortcutApplication {
+public class UrlShortCutApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(Job4jUrlShortcutApplication.class, args);
+        SpringApplication.run(UrlShortCutApp.class, args);
     }
 
 }
