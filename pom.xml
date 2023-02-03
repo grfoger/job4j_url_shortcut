@@ -46,6 +46,10 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -77,7 +81,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ru.job4j.url_shortcut.UrlShortCutApp</mainClass>
+                                    <mainClass>ru.job4j.shortcut.UrlShortCutApp</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
