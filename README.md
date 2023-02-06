@@ -16,7 +16,18 @@
 mvn install
 ```
 
-### 3. Запуск приложения через jar файл:
+### 3. Запуск приложения:
+
+#### Spring boot
+Создать в командной строке базу данных командой (при запросе пароля ввести слово password)
+```bash
+createdb --username=postgres shortcut
+```
+Запустить в командной строке из корневой папки проекта командой
+```bash
+mvn spring-boot:run
+```
+или
 ```bash
 java -jar target/app.jar
 ```
