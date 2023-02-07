@@ -5,27 +5,29 @@ import org.springframework.stereotype.Service;
 import ru.job4j.shortcut.model.User;
 import ru.job4j.shortcut.repository.UserRepository;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @AllArgsConstructor
 @Service
 public class SimpleUserService implements UserService{
 
     private final UserRepository users;
+    private final AtomicInteger accountDataGenerator = new AtomicInteger();
 
     @Override
-    public void save(User user) {
-        users.save(user);
+    public Optional<User> save(User user) {
+        int current = accountDataGenerator.getAndIncrement();
+        user.setLogin("user" + current);
+        user.setPassword("pass" + current);
+        return Optional.of(users.save(user));
     }
 
     @Override
-    public Collection<User> findAll() {
-        return users.findAll();
+    public Optional<User> findByUrl(String url) {
+        return users.findByUrl(url);
     }
 
-    @Override
-    public Optional<User> findById(int id) {
-        return users.findById(id);
-    }
 }

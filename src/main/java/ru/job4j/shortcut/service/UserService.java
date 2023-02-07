@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Service
 public interface UserService {
-    void save(User user);
-    Collection<User> findAll();
-    Optional<User> findById(int id);
+    Optional<User> save(User user);
+
+    Optional<User> findByUrl(String url);
 }

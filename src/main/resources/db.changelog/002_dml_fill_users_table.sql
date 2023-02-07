@@ -1,1 +1,1 @@
-INSERT INTO users (url) VALUES ('admin.example');
+INSERT INTO users (url, login, password) VALUES ('admin.example', 'empty', 'empty');
