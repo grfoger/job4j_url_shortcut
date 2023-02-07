@@ -25,6 +25,7 @@ public class UserController {
         if(empty) {
             dbUser = userService.save(user);
         }
+        // TODO: 07.02.2023 move logic to service layer 
         return ResponseEntity.of(Optional.of(Map.ofEntries(
                 Map.entry("registration", empty.toString()),
                 Map.entry("login", dbUser.get().getLogin()),
