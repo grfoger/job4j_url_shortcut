@@ -12,4 +12,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Override
     Collection<User> findAll();
     Optional<User> findByUrl(String url);
+    Optional<User> findByLogin(String login);
 }
