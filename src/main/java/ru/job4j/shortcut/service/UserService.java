@@ -11,4 +11,6 @@ public interface UserService {
     Optional<User> save(User user);
 
     Optional<User> findByUrl(String url);
+
+    Collection<User> findAll();
 }

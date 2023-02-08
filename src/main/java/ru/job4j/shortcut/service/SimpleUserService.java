@@ -25,13 +25,21 @@ public class SimpleUserService implements UserService{
     @Override
     public Optional<User> save(User user) {
         user.setLogin(RandomString.make(LOGIN_LENGTH));
-        user.setPassword(encoder.encode(RandomString.make(PASS_LENGTH)));
-        return Optional.of(users.save(user));
+        String tempPass = RandomString.make(PASS_LENGTH);
+        user.setPassword(encoder.encode(tempPass));
+        User userDb = users.save(user);
+        userDb.setPassword(tempPass);
+        return Optional.of(userDb);
     }
 
     @Override
     public Optional<User> findByUrl(String url) {
         return users.findByUrl(url);
+    }
+
+    @Override
+    public Collection<User> findAll() {
+        return users.findAll();
     }
 
 }
