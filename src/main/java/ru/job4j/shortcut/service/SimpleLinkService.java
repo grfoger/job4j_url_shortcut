@@ -1,9 +1,11 @@
 package ru.job4j.shortcut.service;
 
 import lombok.AllArgsConstructor;
+import net.bytebuddy.utility.RandomString;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import ru.job4j.shortcut.model.Link;
-import ru.job4j.shortcut.model.User;
 import ru.job4j.shortcut.repository.LinkRepository;
 
 import java.util.Optional;
@@ -23,16 +25,15 @@ public class SimpleLinkService implements LinkService{
 
     @Override
     public Optional<Link> save(Link link) {
-        // TODO: 09.02.2023 метод должен проверять наличие в бд такого url и если есть возвращать существующий
-        // TODO: 09.02.2023 метод должен кодировать и возвращать код
-        // TODO: 09.02.2023 метод должен инкрементировать счётчк
+        link.setCode(RandomString.make(LINK_LENGTH));
         /**
-        Optional<Link> dbLink = linkService.findByUrl(link.getUrl());
-        if(dbLink.isEmpty()) {
-            dbLink = linkService.save(link);
-        }
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        user.getAuthorities();
+        users.findByLogin
          **/
-        return Optional.empty();
+        // TODO: 09.02.2023 добавить прикрепление ассоциированного юзера перед сохранением
+        // TODO: 09.02.2023  перенести links.incrementCount(linkDb.getId()); в метод вызова адреса
+        return Optional.of(links.save(link));
     }
 
 }

@@ -22,9 +22,12 @@ public class LinkController {
 
     private final LinkService linkService;
 
-    @PostMapping("/registration")
+    @PostMapping("/convert")
     public ResponseEntity<Map<String, String>> convertPost(@RequestBody Link link) {
-        Optional<Link> dbLink = linkService.save(link);
+        Optional<Link> dbLink = linkService.findByUrl(link.getUrl());
+        if(dbLink.isEmpty()) {
+            dbLink = linkService.save(link);
+        }
         return ResponseEntity.of(Optional.of(Map.ofEntries(
                 Map.entry("code", dbLink.get().getCode())
         )));

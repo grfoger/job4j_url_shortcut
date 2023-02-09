@@ -24,7 +24,6 @@ public class UserController {
         if(empty) {
             dbUser = userService.save(user);
         }
-        // TODO: 09.02.2023 перенести таки логику проверки в сервсисный слой 
         return ResponseEntity.of(Optional.of(Map.ofEntries(
                 Map.entry("registration", empty.toString()),
                 Map.entry("login", dbUser.get().getLogin()),
