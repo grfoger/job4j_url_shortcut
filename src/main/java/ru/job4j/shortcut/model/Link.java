@@ -26,13 +26,5 @@ public class Link {
     @ManyToOne
     private User user;
 
-    private AtomicInteger count = new AtomicInteger(0);
-
-    public int getCount() {
-        return count.get();
-    }
-
-    public int incrementCount() {
-        return count.incrementAndGet();
-    }
+    private int count;
 }
