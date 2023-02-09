@@ -16,7 +16,6 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    private final BCryptPasswordEncoder encoder;
 
     @PostMapping("/registration")
     public ResponseEntity<Map<String, String>> registrationPost(@RequestBody User user) {
@@ -25,16 +24,11 @@ public class UserController {
         if(empty) {
             dbUser = userService.save(user);
         }
+        // TODO: 09.02.2023 перенести таки логику проверки в сервсисный слой 
         return ResponseEntity.of(Optional.of(Map.ofEntries(
                 Map.entry("registration", empty.toString()),
                 Map.entry("login", dbUser.get().getLogin()),
                 Map.entry("password", dbUser.get().getPassword())
         )));
     }
-
-    @GetMapping("/all")
-    public Collection<User> findAll() {
-        return userService.findAll();
-    }
-
 }
