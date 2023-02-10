@@ -38,8 +38,14 @@ public class SimpleLinkService implements LinkService{
             login = principal.toString();
         }
         link.setUser(users.findByLogin(login).get());
-        // TODO: 09.02.2023  перенести links.incrementCount(linkDb.getId()); в метод вызова адреса
         return Optional.of(links.save(link));
+    }
+
+    @Override
+    public Optional<Link> findByCode(String code) {
+        Optional<Link> linkDb = links.findByCode(code);
+        links.incrementCount(linkDb.get().getId());
+        return linkDb;
     }
 
 }

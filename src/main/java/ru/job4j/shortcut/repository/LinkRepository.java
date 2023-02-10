@@ -20,4 +20,6 @@ public interface LinkRepository extends CrudRepository<Link, Integer> {
     @Modifying
     @Query(value = "UPDATE links SET count = count + 1 where id = ?", nativeQuery = true)
     void incrementCount(int id);
+
+    Optional<Link> findByCode(String code);
 }
