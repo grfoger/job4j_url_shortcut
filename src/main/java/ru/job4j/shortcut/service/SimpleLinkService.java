@@ -11,7 +11,11 @@ import ru.job4j.shortcut.model.Link;
 import ru.job4j.shortcut.repository.LinkRepository;
 import ru.job4j.shortcut.repository.UserRepository;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -46,6 +50,13 @@ public class SimpleLinkService implements LinkService{
         Optional<Link> linkDb = links.findByCode(code);
         links.incrementCount(linkDb.get().getId());
         return linkDb;
+    }
+
+    @Override
+    public Map<String, String> findStatistic() {
+        ArrayList<Link> list = (ArrayList<Link>) links.findAll();
+        return list.stream().collect(Collectors
+                .toMap(link -> "url : " + link.getUrl(), link -> "total : " + link.getCount()));
     }
 
 }

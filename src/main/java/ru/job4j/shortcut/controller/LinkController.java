@@ -1,6 +1,8 @@
 package ru.job4j.shortcut.controller;
 
 import lombok.AllArgsConstructor;
+import net.minidev.json.JSONObject;
+import netscape.javascript.JSObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,6 +41,11 @@ public class LinkController {
                 .header("HTTP CODE", "302 REDIRECT URL")
                 .location(URI.create(link.getUrl()))
                 .build();
+    }
+
+    @GetMapping("/statistic")
+    public ResponseEntity<Map<String, String>> statistic() {
+        return ResponseEntity.of(Optional.of(linkService.findStatistic()));
     }
 
 

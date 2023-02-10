@@ -22,4 +22,7 @@ public interface LinkRepository extends CrudRepository<Link, Integer> {
     void incrementCount(int id);
 
     Optional<Link> findByCode(String code);
+
+    @Override
+    Collection<Link> findAll();
 }

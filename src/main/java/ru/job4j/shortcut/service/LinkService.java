@@ -6,6 +6,7 @@ import ru.job4j.shortcut.model.User;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -15,4 +16,6 @@ public interface LinkService {
     Optional<Link> save(Link link);
 
     Optional<Link> findByCode(String code);
+
+    Map<String, String> findStatistic();
 }
