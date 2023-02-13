@@ -2,6 +2,7 @@ package ru.job4j.shortcut.service;
 
 import lombok.AllArgsConstructor;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.job4j.shortcut.model.User;
@@ -24,16 +25,18 @@ public class SimpleUserService implements UserService{
 
     @Override
     public Optional<User> save(User user) {
-
-        // TODO: 13.02.2023 добавить проеврку на то что url нет в бд которая в слое контроллеров 
-        user.setLogin(RandomString.make(LOGIN_LENGTH));
-        String tempPass = RandomString.make(PASS_LENGTH);
-        user.setPassword(encoder.encode(tempPass));
-        User userDb = null;
-        try {
-            userDb = users.save(user);
-        } catch (RuntimeException e) {
-            save(user);
+        String tempPass;
+        User userDb;
+        while (true) {
+            user.setLogin(RandomString.make(LOGIN_LENGTH));
+            tempPass = RandomString.make(PASS_LENGTH);
+            user.setPassword(encoder.encode(tempPass));
+            try {
+                userDb = users.save(user);
+            } catch (DataIntegrityViolationException e) {
+                continue;
+            }
+            break;
         }
         userDb.setPassword(tempPass);
         return Optional.of(userDb);

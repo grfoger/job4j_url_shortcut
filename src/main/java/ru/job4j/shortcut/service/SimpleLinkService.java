@@ -33,22 +33,23 @@ public class SimpleLinkService implements LinkService{
 
     @Override
     public Optional<Link> save(Link link) {
-
-        // TODO: 13.02.2023 добавить проеврку на то что url нет в бд которая в слое контроллеров
-        link.setCode(RandomString.make(LINK_LENGTH));
-        String login;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            login = ((UserDetails)principal).getUsername();
-        } else {
-            login = principal.toString();
-        }
-        link.setUser(users.findByLogin(login).get());
-        Link dblink = null;
-        try {
-            dblink = links.save(link);
-        } catch (RuntimeException e) {
-            save(link);
+        Link dblink;
+        while (true) {
+            link.setCode(RandomString.make(LINK_LENGTH));
+            String login;
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                login = ((UserDetails) principal).getUsername();
+            } else {
+                login = principal.toString();
+            }
+            link.setUser(users.findByLogin(login).get());
+            try {
+                dblink = links.save(link);
+            } catch (RuntimeException e) {
+                continue;
+            }
+            break;
         }
         return Optional.of(dblink);
     }

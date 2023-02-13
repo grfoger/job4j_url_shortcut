@@ -25,7 +25,7 @@ public class SimpleUserServiceTest {
     @Autowired
     public SimpleUserService userService;
 
-    @Test (expected = RuntimeException.class)
+    @Test (expected = DataIntegrityViolationException.class)
     public void whenSaveUniqueField() {
         User user1 = new User(1,"www.1.ru", "user1", "pass");
         User user2 = new User(2,"www.2.ru", "user2", "pass");
