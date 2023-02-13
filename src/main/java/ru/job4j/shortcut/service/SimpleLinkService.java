@@ -33,6 +33,8 @@ public class SimpleLinkService implements LinkService{
 
     @Override
     public Optional<Link> save(Link link) {
+
+        // TODO: 13.02.2023 добавить проеврку на то что url нет в бд которая в слое контроллеров
         link.setCode(RandomString.make(LINK_LENGTH));
         String login;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -42,7 +44,13 @@ public class SimpleLinkService implements LinkService{
             login = principal.toString();
         }
         link.setUser(users.findByLogin(login).get());
-        return Optional.of(links.save(link));
+        Link dblink = null;
+        try {
+            dblink = links.save(link);
+        } catch (RuntimeException e) {
+            save(link);
+        }
+        return Optional.of(dblink);
     }
 
     @Override

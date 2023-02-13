@@ -24,10 +24,17 @@ public class SimpleUserService implements UserService{
 
     @Override
     public Optional<User> save(User user) {
+
+        // TODO: 13.02.2023 добавить проеврку на то что url нет в бд которая в слое контроллеров 
         user.setLogin(RandomString.make(LOGIN_LENGTH));
         String tempPass = RandomString.make(PASS_LENGTH);
         user.setPassword(encoder.encode(tempPass));
-        User userDb = users.save(user);
+        User userDb = null;
+        try {
+            userDb = users.save(user);
+        } catch (RuntimeException e) {
+            save(user);
+        }
         userDb.setPassword(tempPass);
         return Optional.of(userDb);
     }
