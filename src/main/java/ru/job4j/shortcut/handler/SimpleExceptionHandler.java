@@ -1,5 +1,6 @@
 package ru.job4j.shortcut.handler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -23,12 +24,12 @@ public class SimpleExceptionHandler {
     private final ObjectMapper objectMapper;
 
     @ExceptionHandler(value = {NullPointerException.class, IllegalArgumentException.class})
-    public ResponseEntity<String> handleException(Exception e) throws IOException {
+    public ResponseEntity<String> handleException(Exception e) throws JsonProcessingException {
         LOGGER.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Map.ofEntries(
+                .body(objectMapper.writeValueAsString(Map.ofEntries(
                         Map.entry("message", e.getMessage()),
-                        Map.entry("type", e.getClass())).toString());
+                        Map.entry("type", e.getClass()))));
     }
 }
