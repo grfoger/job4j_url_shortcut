@@ -12,6 +12,7 @@ import ru.job4j.shortcut.model.User;
 import ru.job4j.shortcut.service.LinkService;
 import ru.job4j.shortcut.service.UserService;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class LinkController {
     private final LinkService linkService;
 
     @PostMapping("/convert")
-    public ResponseEntity<Map<String, String>> convertPost(@RequestBody Link link) {
+    public ResponseEntity<Map<String, String>> convertPost(@Valid @RequestBody Link link) {
         Optional<Link> dbLink = linkService.findByUrl(link.getUrl());
         if(dbLink.isEmpty()) {
             dbLink = linkService.save(link);
@@ -37,6 +38,7 @@ public class LinkController {
 
     @GetMapping("/redirect/{code}")
     public ResponseEntity<String> getLink(@PathVariable String code) {
+        // TODO: 14.02.2023 add code string validation
         Link link;
         try {
             link = linkService.findByCode(code).get();
