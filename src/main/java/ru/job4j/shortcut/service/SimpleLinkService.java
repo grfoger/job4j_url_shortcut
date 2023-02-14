@@ -2,6 +2,7 @@ package ru.job4j.shortcut.service;
 
 import lombok.AllArgsConstructor;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
@@ -46,7 +47,7 @@ public class SimpleLinkService implements LinkService{
             link.setUser(users.findByLogin(login).get());
             try {
                 dblink = links.save(link);
-            } catch (RuntimeException e) {
+            } catch (DataIntegrityViolationException e) {
                 continue;
             }
             break;
