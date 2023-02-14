@@ -26,19 +26,19 @@ public class SimpleUserService implements UserService{
     @Override
     public Optional<User> save(User user) {
         String tempPass;
-        User userDb;
-        while (true) {
+        User userDb = null;
+        for (int i = 0; i < 5; i++) {
             user.setLogin(RandomString.make(LOGIN_LENGTH));
             tempPass = RandomString.make(PASS_LENGTH);
             user.setPassword(encoder.encode(tempPass));
             try {
                 userDb = users.save(user);
+                userDb.setPassword(tempPass);
             } catch (DataIntegrityViolationException e) {
                 continue;
             }
             break;
         }
-        userDb.setPassword(tempPass);
         return Optional.of(userDb);
     }
 

@@ -33,8 +33,8 @@ public class SimpleLinkService implements LinkService{
 
     @Override
     public Optional<Link> save(Link link) {
-        Link dblink;
-        while (true) {
+        Link dblink = null;
+        for (int i = 0; i < 5; i++) {
             link.setCode(RandomString.make(LINK_LENGTH));
             String login;
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
