@@ -47,7 +47,4 @@ public class LinkController {
     public ResponseEntity<Map<String, String>> statistic() {
         return ResponseEntity.of(Optional.of(linkService.findStatistic()));
     }
-
-
-   // TODO: 10.02.2023 переписать респонс с мапы на стринг
 }

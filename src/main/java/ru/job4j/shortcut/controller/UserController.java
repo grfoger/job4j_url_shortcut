@@ -30,5 +30,4 @@ public class UserController {
                 Map.entry("password", dbUser.get().getPassword())
         )));
     }
-    // TODO: 10.02.2023 переписать респонс с мапы на стринг 
 }
