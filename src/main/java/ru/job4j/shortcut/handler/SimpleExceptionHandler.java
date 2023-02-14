@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -21,13 +23,12 @@ public class SimpleExceptionHandler {
     private final ObjectMapper objectMapper;
 
     @ExceptionHandler(value = {NullPointerException.class, IllegalArgumentException.class})
-    public void handleException(Exception e, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setStatus(HttpStatus.BAD_REQUEST.value());
-        resp.setContentType("application/json");
-        resp.getWriter().write(objectMapper.writeValueAsString(Map.ofEntries(
-                Map.entry("message", e.getMessage()),
-                Map.entry("type", e.getClass())
-        )));
-        LOGGER.error(e.getLocalizedMessage());
+    public ResponseEntity<String> handleException(Exception e) throws IOException {
+        LOGGER.error(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Map.ofEntries(
+                        Map.entry("message", e.getMessage()),
+                        Map.entry("type", e.getClass())).toString());
     }
 }
