@@ -15,6 +15,7 @@ import ru.job4j.shortcut.repository.UserRepository;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -58,6 +59,9 @@ public class SimpleLinkService implements LinkService{
     @Override
     public Optional<Link> findByCode(String code) {
         Optional<Link> linkDb = links.findByCode(code);
+        if (linkDb.isEmpty()) {
+            throw new NoSuchElementException("Can not find link for redirect. Please check your code.");
+        }
         links.incrementCount(linkDb.get().getId());
         return linkDb;
     }

@@ -15,6 +15,7 @@ import ru.job4j.shortcut.service.UserService;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -36,7 +37,12 @@ public class LinkController {
 
     @GetMapping("/redirect/{code}")
     public ResponseEntity<String> getLink(@PathVariable String code) {
-        Link link = linkService.findByCode(code).get();
+        Link link;
+        try {
+            link = linkService.findByCode(code).get();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header("HTTP CODE", "302 REDIRECT URL")
                 .location(URI.create(link.getUrl()))
