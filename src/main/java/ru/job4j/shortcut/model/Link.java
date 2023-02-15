@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
@@ -21,6 +22,7 @@ public class Link {
     private int id;
 
     @NotBlank(message = "url can't be empty")
+    @NotNull(message = "need url parameter")
     private String url;
     private String code;
     @ManyToOne
