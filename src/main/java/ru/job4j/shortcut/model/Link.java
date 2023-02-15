@@ -1,6 +1,7 @@
 package ru.job4j.shortcut.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,6 +24,7 @@ public class Link {
 
     @NotBlank(message = "url can't be empty")
     @NotNull(message = "need url parameter")
+    @URL(protocol = "http", message = "not correct url")
     private String url;
     private String code;
     @ManyToOne
