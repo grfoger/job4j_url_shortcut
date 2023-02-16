@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
-public class SimpleLinkService implements LinkService{
+public class SimpleLinkService implements LinkService {
 
     private final LinkRepository links;
     private final UserRepository users;
@@ -58,6 +58,9 @@ public class SimpleLinkService implements LinkService{
 
     @Override
     public Optional<Link> findByCode(String code) {
+        if (code == null || code.length() == 0) {
+            throw new IllegalArgumentException("Wrong code type");
+        }
         Optional<Link> linkDb = links.findByCode(code);
         if (linkDb.isEmpty()) {
             throw new NoSuchElementException("Can not find link for redirect. Please check your code.");

@@ -22,7 +22,7 @@ public class UserController {
     public ResponseEntity<Map<String, String>> registrationPost(@Valid @RequestBody User user) {
         Optional<User> dbUser = userService.findByUrl(user.getUrl());
         Boolean empty = dbUser.isEmpty();
-        if(empty) {
+        if (empty) {
             dbUser = userService.save(user);
         }
         return ResponseEntity.of(Optional.of(Map.ofEntries(

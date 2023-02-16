@@ -28,7 +28,7 @@ public class LinkController {
     @PostMapping("/convert")
     public ResponseEntity<Map<String, String>> convertPost(@Valid @RequestBody Link link) {
         Optional<Link> dbLink = linkService.findByUrl(link.getUrl());
-        if(dbLink.isEmpty()) {
+        if (dbLink.isEmpty()) {
             dbLink = linkService.save(link);
         }
         return ResponseEntity.of(Optional.of(Map.ofEntries(
@@ -38,12 +38,13 @@ public class LinkController {
 
     @GetMapping("/redirect/{code}")
     public ResponseEntity<String> getLink(@PathVariable String code) {
-        // TODO: 14.02.2023 add code string validation
         Link link;
         try {
             link = linkService.findByCode(code).get();
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header("HTTP CODE", "302 REDIRECT URL")

@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @AllArgsConstructor
 @Service
-public class SimpleUserService implements UserService{
+public class SimpleUserService implements UserService {
 
     private final UserRepository users;
     private final BCryptPasswordEncoder encoder;
