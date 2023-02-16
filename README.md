@@ -3,8 +3,8 @@
 ### Проект - UrlShortCut.
 Задача: Обеспечить безопасность пользователей путём замены ссылок сайта на ссылки данного сервиса.
 Сервис реализуется через REST API.\
-**Стек технологий:** Java17, SpringBoot, Maven, PostgreSQL, H2, 
-REST, Liquibase, JWT, Lombok, JUnit, Spring (Web, Security, Data, Validation)
+**Стек технологий:** Java 17, SpringBoot 2.7.8, REST, Maven 3.5.4, PostgreSQL 14.2, 
+Liquibase 3.6.2, JWT 3.4.0, H2, Lombok, JUnit, Spring (Web, Security, Data, Validation)
 
 **Необходимое окружение:**
 * Java JDK 17.0.2
@@ -71,9 +71,7 @@ jps
 taskkill -f /PID ###
 ```
 ### 4. Контакты:
-Архип(grfoger) aka Тишенков Алексей
->E-mail: grfoger@gmail.com
->
->Моб.тел.: +7(967)064-19-20
->
->Telegram: @grfoger
+Архип(grfoger) aka Тишенков Алексей\
+Моб.тел.: +7(967)064-19-20\
+[![alt-text](https://img.shields.io/badge/-telegram-grey?style=flat&logo=telegram&logoColor=white)](https://t.me/grfoger)
+[![alt-text](https://img.shields.io/badge/@%20email-005FED?style=flat&logo=mail&logoColor=white)](mailto:grfoger@gmail.com)
