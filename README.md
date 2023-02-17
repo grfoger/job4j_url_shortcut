@@ -71,8 +71,7 @@ jps
 taskkill -f /PID ###
 ```
 ### 4. Контакты:
-Архип(grfoger) aka Тишенков Алексей
-
-[![alt-text](https://img.shields.io/badge/-📞_phone-orange?style=flat&logo=&logoColor=white)](tel:+79670641920)
+Архип(**grfoger**) aka Тишенков Алексей\
+📞+7(967)064-19-20\
 [![alt-text](https://img.shields.io/badge/-telegram-grey?style=flat&logo=telegram&logoColor=white)](https://t.me/grfoger)
 [![alt-text](https://img.shields.io/badge/@%20email-005FED?style=flat&logo=mail&logoColor=white)](mailto:grfoger@gmail.com)
