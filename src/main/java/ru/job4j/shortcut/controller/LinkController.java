@@ -5,8 +5,11 @@ import net.minidev.json.JSONObject;
 import netscape.javascript.JSObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import ru.job4j.shortcut.dto.LinkDTO;
 import ru.job4j.shortcut.model.Link;
 import ru.job4j.shortcut.model.User;
 import ru.job4j.shortcut.service.LinkService;
@@ -26,13 +29,21 @@ public class LinkController {
     private final LinkService linkService;
 
     @PostMapping("/convert")
-    public ResponseEntity<Map<String, String>> convertPost(@Valid @RequestBody Link link) {
-        Optional<Link> dbLink = linkService.findByUrl(link.getUrl());
-        if (dbLink.isEmpty()) {
-            dbLink = linkService.save(link);
+    public ResponseEntity<Map<String, String>> convertPost(@Valid @RequestBody LinkDTO linkDTO) {
+        String login;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            login = ((UserDetails) principal).getUsername();
+        } else {
+            login = principal.toString();
+        }
+        linkDTO.setUserLogin(login);
+        Optional<Link> link = linkService.findByUrl(linkDTO.getUrl());
+        if (link.isEmpty()) {
+            link = linkService.save(linkDTO);
         }
         return ResponseEntity.of(Optional.of(Map.ofEntries(
-                Map.entry("code", dbLink.get().getCode())
+                Map.entry("code", link.get().getCode())
         )));
     }
 

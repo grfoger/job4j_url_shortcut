@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import ru.job4j.shortcut.dto.LinkDTO;
 import ru.job4j.shortcut.model.Link;
 import ru.job4j.shortcut.repository.LinkRepository;
 import ru.job4j.shortcut.repository.UserRepository;
@@ -34,26 +35,18 @@ public class SimpleLinkService implements LinkService {
     }
 
     @Override
-    public Optional<Link> save(Link link) {
-        Link dblink = null;
+    public Optional<Link> save(LinkDTO linkDTO) {
+        Link link = new Link(0, linkDTO.getUrl(), null, users.findByLogin(linkDTO.getUserLogin()).get(), 0);
         for (int i = 0; i < 5; i++) {
             link.setCode(RandomString.make(LINK_LENGTH));
-            String login;
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                login = ((UserDetails) principal).getUsername();
-            } else {
-                login = principal.toString();
-            }
-            link.setUser(users.findByLogin(login).get());
             try {
-                dblink = links.save(link);
+                link = links.save(link);
             } catch (DataIntegrityViolationException e) {
                 continue;
             }
             break;
         }
-        return Optional.of(dblink);
+        return Optional.of(link);
     }
 
     @Override
