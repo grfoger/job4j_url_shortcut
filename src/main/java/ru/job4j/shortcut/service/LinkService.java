@@ -3,10 +3,6 @@ package ru.job4j.shortcut.service;
 import org.springframework.stereotype.Service;
 import ru.job4j.shortcut.dto.LinkDTO;
 import ru.job4j.shortcut.model.Link;
-import ru.job4j.shortcut.model.User;
-
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 

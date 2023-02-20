@@ -7,11 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.job4j.shortcut.model.User;
 import ru.job4j.shortcut.repository.UserRepository;
-
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @AllArgsConstructor
 @Service

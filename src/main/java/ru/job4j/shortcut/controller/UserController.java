@@ -2,13 +2,10 @@ package ru.job4j.shortcut.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.shortcut.model.User;
 import ru.job4j.shortcut.service.UserService;
-
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 

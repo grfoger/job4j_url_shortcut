@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.shortcut.model.Link;
-import ru.job4j.shortcut.model.User;
 
 import java.util.Collection;
 import java.util.Optional;

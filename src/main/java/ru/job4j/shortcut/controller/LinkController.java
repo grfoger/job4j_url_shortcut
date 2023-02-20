@@ -1,23 +1,16 @@
 package ru.job4j.shortcut.controller;
 
 import lombok.AllArgsConstructor;
-import net.minidev.json.JSONObject;
-import netscape.javascript.JSObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.shortcut.dto.LinkDTO;
 import ru.job4j.shortcut.model.Link;
-import ru.job4j.shortcut.model.User;
 import ru.job4j.shortcut.service.LinkService;
-import ru.job4j.shortcut.service.UserService;
-
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Collection;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;

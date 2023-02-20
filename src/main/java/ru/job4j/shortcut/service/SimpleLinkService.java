@@ -3,17 +3,12 @@ package ru.job4j.shortcut.service;
 import lombok.AllArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.job4j.shortcut.dto.LinkDTO;
 import ru.job4j.shortcut.model.Link;
+import ru.job4j.shortcut.model.User;
 import ru.job4j.shortcut.repository.LinkRepository;
 import ru.job4j.shortcut.repository.UserRepository;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -36,8 +31,12 @@ public class SimpleLinkService implements LinkService {
 
     @Override
     public Optional<Link> save(LinkDTO linkDTO) {
-        Link link = new Link(0, linkDTO.getUrl(), null, users.findByLogin(linkDTO.getUserLogin()).get(), 0);
-        for (int i = 0; i < 5; i++) {
+        Optional<User> user = users.findByLogin(linkDTO.getUserLogin());
+        if (user.isEmpty()) {
+            throw new NoSuchElementException("current user not found");
+        }
+        Link link = new Link(0, linkDTO.getUrl(), null, user.get(), 0);
+        while (true) {
             link.setCode(RandomString.make(LINK_LENGTH));
             try {
                 link = links.save(link);
