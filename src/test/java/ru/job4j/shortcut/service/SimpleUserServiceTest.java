@@ -26,8 +26,8 @@ public class SimpleUserServiceTest {
     @Test
     public void whenSaveUniqueField() {
         assertThrows(DataIntegrityViolationException.class, () -> {
-            User user1 = new User(1, "http://www.1.ru", "user1", "pass");
-            User user2 = new User(2, "http://www.2.ru", "user2", "pass");
+            User user1 = new User(1, "http://www.1.ru", "user1", "pass1");
+            User user2 = new User(2, "http://www.2.ru", "user1", "pass2");
             users.save(user1);
             users.save(user2);
         });

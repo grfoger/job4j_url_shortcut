@@ -17,11 +17,11 @@ Liquibase 3.6.2, JWT 3.4.0, H2, Lombok, JUnit, Spring (Web, Security, Data, Vali
 1. **Регистрация сайта**\
    POST запрос на адрес http://localhost:8080/registration c телом JSON объекта:
    {"url" : "http://example.site"}
-   в ответе: {registration : true/false, login : УНИКАЛЬНЫЙ_ЛОГИН, password : УНИКАЛЬНЫЙ_ПАРОЛЬ}
+   в ответе: {registration : true/false, login : УНИКАЛЬНЫЙ_ЛОГИН, password : ПАРОЛЬ}
    false - означает что данный сайт уже зарегистрирован.
 2. **Авторизация через JWT**\
    POST запрос на адрес http://localhost:8080/login c телом JSON объекта:
-   {"login" : "УНИКАЛЬНЫЙ_ЛОГИН", "password" : "УНИКАЛЬНЫЙ_ПАРОЛЬ"}
+   {"login" : "УНИКАЛЬНЫЙ_ЛОГИН", "password" : "ПАРОЛЬ"}
    Сервис возвращает ключ для авторизации, который неодходимо отправить в блоке HEAD, вида:
    Authorization: Bearer s1o2m3e4.....c5o6d7e8
 3. **Регистрация URL**\
